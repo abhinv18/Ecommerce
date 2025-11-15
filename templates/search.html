@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="products-box">
+    <div class="container">
+
+        {% if products %}
+            <div class="row special-list">
+
+                {% for j in products %}
+                    <div class="col-lg-3 col-md-6 special-grid best-seller">
+                        <div class="products-single fix">
+                            <div class="box-img-hover">
+                                <div class="type-lb">
+                                    <p class="sale">Sale</p>
+                                </div>
+
+                                <img src="{{ j.image.url }}" class="img-fluid" alt="Image"
+                                     style="width: 100%; height: auto; object-fit: cover;">
+
+                                <div class="mask-icon">
+                                    <ul>
+                                        <li><a href="#" data-toggle="tooltip" title="View"><i class="fas fa-eye"></i></a></li>
+                                        <li><a href="#" data-toggle="tooltip" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
+                                        <li><a href="#" data-toggle="tooltip" title="Wishlist"><i class="far fa-heart"></i></a></li>
+                                    </ul>
+
+                                    <a class="cart" href="{% url 'shop:productdetail' j.id %}">Detail</a>
+                                </div>
+                            </div>
+
+                            <div class="why-text">
+                                <h4>{{ j.name }}</h4>
+                                <h5>{{ j.description }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+            <h2 class="text-center text-danger mt-5"><b>No Results Found</b></h2>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

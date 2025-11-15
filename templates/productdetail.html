@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>ABOUT US</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">ABOUT US</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+
+<!-- Start About Page -->
+<div class="about-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="banner-frame">
+                    <img class="img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="noo-sh-title-top">{{ product.name }}</h2>
+                <h3>Price: {{ product.price }}</h3>
+
+                {% if product.stock > 0 %}
+                    <h3>Currently <b>{{ product.stock }}</b> item(s) available</h3>
+                {% else %}
+                    <h3>Out of Stock</h3>
+                {% endif %}
+
+                <h3><b>Short Description</b></h3>
+                <h3>{{ product.description }}</h3>
+
+                {% if user.is_superuser %}
+                    <a class="btn hvr-hover" href="{% url 'shop:addstock' product.id %}">Add Stock</a>
+                {% else %}
+                    {% if product.stock > 0 %}
+                      <a href="{% url 'cart:addtocart' product.id %}" class="btn hvr-hover">Add to Cart</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

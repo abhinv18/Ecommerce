@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>orders</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active">Cart</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="container w-50 p-5 mt-5">
+  <div class="container border border-2 shadow mt-5 p-4 rounded-4">
+
+    {% for i in orders %}
+      <!-- Order Header Section -->
+      <div class="p-3 mb-3 border rounded bg-light">
+        <h5>Order No: {{ i.order_id }}</h5>
+        <p>Ordered on: {{ i.ordered_date|date:"M d, Y - H:i" }}</p>
+        <p>Order Total: ₹{{ i.amount }}</p>
+           <p>status: <span class="text-danger">{{ i.delivery_status }}</span></p>
+      </div>
+
+      <!-- Product Cards Section -->
+      <div class="mb-5">
+        {% for j in i.products.all %}
+          <div class="card mb-3 mx-auto" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{{ j.product.image.url }}" class="img-fluid rounded-start" alt="{{ j.product.name }}">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title mb-1">{{ j.product.name }}</h5>
+                  <p class="card-text mb-0">₹{{ j.product.price }}</p>
+                  <p class="card-text">Qty: {{ j.quantity }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <hr class="my-4"> <!-- divider between two orders -->
+    {% endfor %}
+
+  </div>
+</div>
+
+
+{% endblock %}
